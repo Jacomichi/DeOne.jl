@@ -1,5 +1,5 @@
 mutable struct Variable
-    data::Union{Array,nothing}
+    data::Union{Array,Nothing}
     grad
     creator
 end
