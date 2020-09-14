@@ -1,12 +1,12 @@
 language: julia
 
-os:
-  - osx
+notifications:
+  email: false
 
-julia:
-  - 1.5
-  - 1
-  - nightly
-
-script:
-  - julia Test.jl -e 'using Pkg; Pkg.activate(); Pkg.instantiate(); Pkg.test()'
+jobs:
+  include:
+    script:
+      julia: 1.5
+      os: linux
+        - julia --color=yes Test.jl -e 'using Pkg; Pkg.activate(); Pkg.instantiate(); Pkg.test()'
+      after_success: skip
