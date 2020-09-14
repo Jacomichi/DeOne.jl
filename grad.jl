@@ -1,5 +1,5 @@
 mutable struct Variable
-    data
+    data::Union{Array,nothing}
     grad
     creator
 end
@@ -30,7 +30,7 @@ function forward(square::Square,x::Variable)
 end
 
 function backward(square::Square,grad)
-    return 2 * square.input.data * grad
+    return 2 * square.input.data .* grad
 end
 
 function forward(expo::Expo,x::Variable)
@@ -42,20 +42,28 @@ function forward(expo::Expo,x::Variable)
 end
 
 function backward(expo::Expo,grad)
-    return exp.(expo.input.data) * grad
+    return exp.(expo.input.data) .* grad
+end
+
+function ones_like(data)
+    return ones(eltype(data),size(data))
 end
 
 function backward(x::Variable)
+    if isnothing(x.grad)
+        x.grad = ones_like(x.data)
+    end
+
     func = Any[]
     append!(func,[x.creator])
 
     while !isempty(func)
         f = pop!(func)
         z,y = f.output,f.input
+        println(z)
         y.grad = backward(f,z.grad)
         if y.creator != nothing
             append!(func,[y.creator])
         end
-
     end
 end
