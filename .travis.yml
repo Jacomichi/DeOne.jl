@@ -1,13 +1,11 @@
 language: julia
+julia: 1.5
 
 notifications:
   email: false
 
 jobs:
-  include:
-    script:
-      julia: 1.5
-      os: linux
-        - julia --color=yes -e 'using Pkg; Pkg.activate(); Pkg.instantiate(); Pkg.test()'
-        - julia Test.jl
-      after_success: skip
+    julia: 1.5
+    os: linux
+    script: julia Test.jl
+    after_success: skip
