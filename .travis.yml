@@ -8,5 +8,6 @@ jobs:
     script:
       julia: 1.5
       os: linux
-        - julia --color=yes Test.jl -e 'using Pkg; Pkg.activate(); Pkg.instantiate(); Pkg.test()'
+        - julia --color=yes -e 'using Pkg; Pkg.activate(); Pkg.instantiate(); Pkg.test()'
+        - julia Test.jl
       after_success: skip
