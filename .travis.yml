@@ -4,8 +4,4 @@ julia: 1.5
 notifications:
   email: false
 
-jobs:
-    julia: 1.5
-    os: linux
-    script: julia Test.jl
-    after_success: skip
+script: julia Test.jl
